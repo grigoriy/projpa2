@@ -10,8 +10,13 @@ public class Employee {
     private int id;
     private String name;
     private long salary;
+    @ManyToOne
+    @JoinColumn
+    private Company company;
 
-    public Employee() {}
+    public Employee() {
+    }
+
     public Employee(int id) {
         this.id = id;
     }
@@ -40,10 +45,51 @@ public class Employee {
         this.salary = salary;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        
+        if (other == null) {
+            return false;
+        }
+        if (! (other instanceof Employee)) {
+            return false;
+        }
+        Employee otherEmployee = (Employee) other;
+        if (otherEmployee.getId() != id) {
+            return false;
+        }
+        if (otherEmployee.getName() != name) {
+            return false;
+        }
+        if (otherEmployee.getSalary() != salary) {
+            return false;
+        }
+        if (otherEmployee.getCompany() != company) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return 31 * (int)(id + name.hashCode() + salary + company.hashCode());
+    }
+
     @Override
     public String toString() {
+
         return "Employee: id=" + id +
             ", name=" + name +
-            ", salary=" + salary;
+            ", salary=" + salary +
+            ", company=" + company.getName();
     }
 }

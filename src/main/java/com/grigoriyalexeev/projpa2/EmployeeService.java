@@ -12,11 +12,12 @@ public class EmployeeService {
         this.manager = manager;
     }
 
-    public Employee createEmployee(int id, String name, long salary) {
+    public Employee createEmployee(int id, String name, long salary, Company company) {
 
         Employee employee = new Employee(id);
         employee.setName(name);
         employee.setSalary(salary);
+        employee.setCompany(company);
         manager.persist(employee);
 
         return employee;
